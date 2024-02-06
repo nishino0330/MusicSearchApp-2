@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify楽曲検索結果</title>
+</head>
+<body>
+    <h1>Spotify楽曲検索結果</h1>
+    <table>
+        <tr>
+            <th>楽曲名</th>
+            <th>アーティスト名</th>
+            <th>アルバム名</th>
+            <th>プレビュー</th>
+        </tr>
+        <!-- 楽曲の情報をループで表示する -->
+        
+        <tr th:each="item : ${tracks.items}">
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.artists[0].name}"></td>
+            <td th:text="${item.album.name}"></td>
+            <td>
+                <!-- プレビューURLがあればリンクを表示する -->
+                <a th:if="${item.preview_url != null}" th:href="${item.preview_url}" target="_blank">プレビュー</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

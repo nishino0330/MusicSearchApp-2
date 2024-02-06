@@ -88,4 +88,25 @@ public class SpotifyService {
         // レスポンスから楽曲の情報を取得して返す
         return (Map<String, Object>) response.getBody().get("tracks");
     }
+    public Map<String, Object> searchArtists(String query) {
+        // アクセストークンがない場合は取得する
+        if (accessToken == null) {
+            getAccessToken();
+        }
+
+        // ヘッダーにアクセストークンを設定する
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // HttpEntityにヘッダーを設定する
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        // GETリクエストを送ってレスポンスを受け取る
+        ResponseEntity<Map> response = restTemplate.exchange(apiBase + "/search?q=" + query + "&type=artist", HttpMethod.GET, request, Map.class);
+
+        // レスポンスからアーティストの情報を取得して返す
+        return (Map<String, Object>) response.getBody().get("artists");
+    }
+    
+    
 }

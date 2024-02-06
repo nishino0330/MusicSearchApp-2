@@ -23,14 +23,26 @@ public class SpotifyController {
 
     // 楽曲検索の処理
     @GetMapping("/search")
-    public String search(@RequestParam String query, Model model) {
-        // SpotifyServiceのsearchTracksメソッドを呼び出して楽曲の情報を取得する
-        Map<String, Object> tracks = spotifyService.searchTracks(query);
+    public String search(@RequestParam String searchType, @RequestParam String query, Model model) {
+    	if ("track".equals(searchType)) {
+    		// SpotifyServiceのsearchTracksメソッドを呼び出して楽曲の情報を取得する
+            Map<String, Object> tracks = spotifyService.searchTracks(query);
+            model.addAttribute("searchType", "曲名");
 
-        // モデルに楽曲の情報を設定する
-        model.addAttribute("tracks", tracks);
+            // モデルに楽曲の情報を設定する
+            model.addAttribute("tracks", tracks);
 
-        // 検索結果ページを返す
-        return "result";
+            // 検索結果ページを返す
+            return "track";
+    	} else if ("artist".equals(searchType)) {
+    		// SpotifyServiceのsearchTracksメソッドを呼び出して楽曲の情報を取得する
+            Map<String, Object> artists = spotifyService.searchTracks(query);
+            model.addAttribute("searchType", "アーティスト");
+            model.addAttribute("artists", artists);
+            return "artist";  // アーティartistストの結果を表示するテンプレート
+        }
+    	
+    	// デフォルトの遷移
+        return "track";
     }
 }
