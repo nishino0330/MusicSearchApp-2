@@ -3,6 +3,7 @@ package com.example.demo;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -107,6 +108,26 @@ public class SpotifyService {
         // レスポンスからアーティストの情報を取得して返す
         return (Map<String, Object>) response.getBody().get("artists");
     }
-    
+    //------------------------------------
+    public List<String> getCategories() {
+        // アクセストークンがない場合は取得する
+        if (accessToken == null) {
+            getAccessToken();
+        }
+
+        // ヘッダーにアクセストークンを設定する
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // HttpEntityにヘッダーを設定する
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        // GETリクエストを送ってレスポンスを受け取る
+        ResponseEntity<Map> response = restTemplate.exchange(apiBase + "/categories", HttpMethod.GET, request, Map.class);
+
+        // レスポンスからカテゴリー情報を取得して返す        
+        List<String> categories = (List<String>) response.getBody().get("categories");
+        return categories;
+    }   
     
 }

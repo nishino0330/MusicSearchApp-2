@@ -7,21 +7,21 @@
     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Spotify検索</title>
     <link th:href="@{/css/style.css}" rel="stylesheet">
-    <script th:src="@{/js/test.js}"></script> 
+    <script th:src="@{/js/spotify.js}"></script> 
 </head>
 
 <body>
 	<div class="navigation">
 		<ul>
 			<li class="list">
-				<a href="@{/}">
+				<a href="#">
 					<span class="icon"><ion-icon name="search-outline"></ion-icon></ion-icon></span>
 					<span class="title">検索</span>
 				</a>
 			</li>
 			
 			<li class="list">
-				<a href="@{/}">
+				<a href="#">
 					<!-- <span class="icon"><ion-icon name="star-outline"></ion-icon></span> -->
 					<span class="icon"><ion-icon name="heart-outline"></ion-icon></span>
 					<span class="title">お気に入り</span>
@@ -48,7 +48,7 @@
 	<div class="main-content">
 		<h1>Spotify楽曲検索</h1>
 	    <form action="/search" method="get">
-						
+
 			<p>検索対象を選択</p>
 	        <select name="searchType">
 	            <option value="track">曲名</option>
@@ -58,6 +58,7 @@
 	        <input type="text" name="query" placeholder="検索キーワードを入力してください">
 	        <button type="submit">検索</button>
 	    </form>
+	    
 	</div>
         
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

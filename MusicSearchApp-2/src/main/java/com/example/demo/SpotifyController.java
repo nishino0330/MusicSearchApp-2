@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class SpotifyController {
             model.addAttribute("searchType", "アーティスト");
             model.addAttribute("artists", artists);
             return "artist";  // アーティartistストの結果を表示するテンプレート
+    	} else if ("categorie".equals(searchType)) {
+            List<String> categories = spotifyService.getCategories();
+            model.addAttribute("searchType", "カテゴリー");
+            model.addAttribute("categories", categories);
+            return "categories"; // カテゴリーの結果を表示するテンプレート
         }
     	
     	// デフォルトの遷移
